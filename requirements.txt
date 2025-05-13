@@ -1,0 +1,8 @@
+flet==0.23.2
+gdown
+gradio
+kornia
+opencv-contrib-python
+timm
+transparent-background
+tqdm  
