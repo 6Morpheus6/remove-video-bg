@@ -1,30 +1,26 @@
-const config = require("./config.js")
-const pre = require("./pre.js")
-module.exports = async (kernel) => {
-  let script = {
-    run: [{
+module.exports = {
+  run: [
+    {
+      method: "script.start",
+      params: {
+        uri: "torch.js",
+        params: {
+          venv: "env",
+        }
+      }
+    },
+    {
       method: "shell.run",
       params: {
         venv: "env",
-        message: [
-          "pip install opencv-contrib-python timm tqdm kornia gdown transparent-background gradio"
-        ],
+        message: "uv pip install -r requirements.txt"
       }
-    }, {
-      method: "fs.share",
-      params: {
-        venv: "env"
-      }
-    }, {
+    },
+    {
       method: "notify",
       params: {
         html: "Click the 'start' tab to get started!"
       }
-    }]
-  }
-  let pre_command = pre(config, kernel)
-  if (pre_command) {
-    script.run[0].params.message = [pre_command].concat(script.run[0].params.message)
-  }
-  return script
+    }
+  ]
 }
